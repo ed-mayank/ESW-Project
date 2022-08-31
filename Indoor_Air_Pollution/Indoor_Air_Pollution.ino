@@ -3,9 +3,18 @@
 #include "Adafruit_SGP40.h"
 #include "WiFi.h"
 #include "ThingSpeak.h"
+#include  <ArduinoJson.h>
+#include "HTTPClient.h"
 
 #define WIFI_NETWORK "DontTry"
 #define WIFI_PASSWORD "12345678"
+//-----------------------------------------------------------------------
+String cse_ip = "127.0.0.1";        // YOUR IP from ipconfig/ifconfig
+String cse_port = "8080";
+String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
+String ae = "Indoor-Air-Pollution";
+String cnt = "Data";
+//-----------------------------------------------------------------------
 
 unsigned long myChannelNumber =  1840267;
 const char * myWriteAPIKey = "LV8I6137T33DK1EI";
@@ -23,6 +32,20 @@ void ConnectToWifi(){
   Serial.println(WiFi.localIP());
 }
 
+void CreateContentInstance(String& val)
+{
+  HTTPClient http;
+  http.begin(server + ae + "/" + cnt + "/");
+  http.addHeader("X-M2M-Origin", "admin:admin");
+  http.addHeader("Content-Type", "application/json;ty=4");
+  int code = http.POST("{\"m2m:cin\": {\"cnf\":\"application/json\",\"con\": " + String(val) + "}}");
+  Serial.println(code);
+  if (code == -1) {
+    Serial.println("UNABLE TO CONNECT TO THE SERVER");
+  }
+  http.end();
+}
+
 WiFiClient  client;
 
 //------------------------------------------------CO2 Sensing-----------------------------------------------------
@@ -30,7 +53,7 @@ WiFiClient  client;
 unsigned long duration, th, tl;
 int ppm;
 
-void CO2_Monitor(){
+void CO2_Monitor(String& val){
   th = pulseIn(PIN, HIGH, 2008000) / 1000;
   tl = 1004 - th;
   ppm = 2000 * (th - 2) / (th + tl - 4);
@@ -43,6 +66,7 @@ void CO2_Monitor(){
     Serial.print(" Co2 Concentration: ");
     Serial.println(ppm);
     ThingSpeak.setField(1,ppm);
+    val+=(String)ppm+",";
     //    Serial.println(" ppm");
   }
 }
@@ -60,7 +84,7 @@ void SHT_setup(){
 
 }
 
-void SHT_Reading(){
+void SHT_Reading(String& val){
   sensors_event_t humidity, temp;
   
   uint32_t timestamp = millis();
@@ -77,6 +101,8 @@ void SHT_Reading(){
 
     ThingSpeak.setField(5, temp.temperature);
     ThingSpeak.setField(6, humidity.relative_humidity);
+
+    val=val+"["+(String)temp.temperature+","+(String)humidity.relative_humidity+",";
 //  Serial.print("Read duration (ms): ");
 //  Serial.println(timestamp);
 
@@ -99,13 +125,14 @@ void SGP_setup(){
 //  Serial.println(sgp.serialnumber[2], HEX);
 }
 
-void SGP_Reading(){
+void SGP_Reading(String& val){
   uint16_t raw;
   
   raw = sgp.measureRaw();
 
   Serial.print("VOC: ");
   ThingSpeak.setField(2, raw);
+  val+=(String)raw+",";
   Serial.println(raw);
   delay(1000);
 }
@@ -142,13 +169,14 @@ bool checksum()
   else
     return false;
 }
-void calculate_pm()
+void calculate_pm(String &val)
 {
   int pm2 = int(received_data[4]) * 256 + int(received_data[5]);
   delay(5000);
   int pm10 = int(received_data[2]) * 256 + int(received_data[3]);
   ThingSpeak.setField(3, pm2);
   ThingSpeak.setField(4, pm10);
+  val+=(String)pm2+","+(String)pm10+"]";
   Serial.println(pm2);
   Serial.println(pm10);
 }
@@ -157,7 +185,7 @@ void PM_setup(){
   send_command(0x01);
 }
 
-void PM_Reading(){
+void PM_Reading(String& val){
   delay(5000);
   if (millis() - prev_time > 5000)
   {
@@ -169,7 +197,7 @@ void PM_Reading(){
     Serial.readBytes(received_data, 9);
     if (checksum())
     {
-      calculate_pm();
+      calculate_pm(val);
     }
   }
 }
@@ -187,11 +215,29 @@ void setup() {
 }
 
 int counter = 0;
+int start=millis();
+String val="";
 void loop() {
-  CO2_Monitor();
-  SHT_Reading();
-  SGP_Reading();
-  PM_Reading();
-  ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-//  Serial.println("---------------------------\n\n");
+  if(millis()-start>=30)
+  {
+    val="";
+    SHT_Reading(val);
+    CO2_Monitor(val);
+    SGP_Reading(val);
+    PM_Reading(val);
+    CreateContentInstance(val);
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+    start=millis();
+  }
+  else
+  {
+    val="";
+    SHT_Reading(val);
+    CO2_Monitor(val);
+    SGP_Reading(val);
+    PM_Reading(val);
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+  }
+  
+  Serial.println(val);
 }
