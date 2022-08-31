@@ -23,7 +23,7 @@ def CreateContainers():
 app =Flask(__name__)
 @app.route("/")
 def home():
-    return redirect(url_for("Temperature"))
+    return "Indoor Air pollution"
 @app.route("/Temperature")
 def Temperature():
     resp = requests.get(
@@ -35,11 +35,11 @@ def Temperature():
     for dat in data:
         if(dat==','):
             break
-        while begin==1:
+        if begin==1:
             temp+=dat
         if(dat=='['):
             begin=1
-    return(jsonify(content=temp))
+    return(temp)
     # return render_template("ui.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 @app.route("/Humidity")
@@ -57,7 +57,7 @@ def Humidity():
             temp+=dat
         if(begin>1):
             break
-    return(jsonify(content=temp))
+    return(temp)
     # return render_template("ui.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 @app.route("/CO2")
@@ -75,7 +75,7 @@ def CO2():
             temp+=dat
         if(begin>2):
             break
-    return(jsonify(content=temp))
+    return(temp)
     # return render_template("ui.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 @app.route("/VOC")
@@ -93,7 +93,7 @@ def VOC():
             temp+=dat
         if(begin>3):
             break
-    return(jsonify(content=temp))
+    return(temp)
     # return render_template("ui.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 @app.route("/PM_2")
@@ -111,7 +111,7 @@ def PM2():
             temp+=dat
         if(begin>4):
             break
-    return(jsonify(content=temp))
+    return(temp)
     # return render_template("ui.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 @app.route("/PM_10")
@@ -130,7 +130,7 @@ def PM10():
         if begin==5 and dat!=',':
             temp+=dat
         
-    return(jsonify(content=temp))  
+    return(temp)  
     # return render_template("ui.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 if __name__ == "__main__":
