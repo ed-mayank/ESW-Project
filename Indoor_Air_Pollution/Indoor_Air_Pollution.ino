@@ -9,7 +9,7 @@
 #define WIFI_NETWORK "DontTry"
 #define WIFI_PASSWORD "12345678"
 //-----------------------------------------------------------------------
-String cse_ip = "127.0.0.1";        // YOUR IP from ipconfig/ifconfig
+String cse_ip = "192.168.16.181";        // YOUR IP from ipconfig/ifconfig
 String cse_port = "8080";
 String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
 String ae = "Indoor-Air-Pollution";
@@ -38,7 +38,9 @@ void CreateContentInstance(String& val)
   http.begin(server + ae + "/" + cnt + "/");
   http.addHeader("X-M2M-Origin", "admin:admin");
   http.addHeader("Content-Type", "application/json;ty=4");
-  int code = http.POST("{\"m2m:cin\": {\"cnf\":\"application/json\",\"con\": " + String(val) + "}}");
+  http.addHeader("Content-Length", "100");
+  Serial.println(String(val));
+  int code = http.POST("{\"m2m:cin\": {\"cnf\":\"text\",\"con\": " + val + "}}");
   Serial.println(code);
   if (code == -1) {
     Serial.println("UNABLE TO CONNECT TO THE SERVER");
@@ -47,6 +49,9 @@ void CreateContentInstance(String& val)
 }
 
 WiFiClient  client;
+
+#define LED_PIN 25
+#define BUZZER_PIN 26
 
 //------------------------------------------------CO2 Sensing-----------------------------------------------------
 #define PIN 12
@@ -102,7 +107,7 @@ void SHT_Reading(String& val){
     ThingSpeak.setField(5, temp.temperature);
     ThingSpeak.setField(6, humidity.relative_humidity);
 
-    val=val+"["+(String)temp.temperature+","+(String)humidity.relative_humidity+",";
+    val=val+"\"["+(String)temp.temperature+","+(String)humidity.relative_humidity+",";
 //  Serial.print("Read duration (ms): ");
 //  Serial.println(timestamp);
 
@@ -124,16 +129,15 @@ void SGP_setup(){
 //  Serial.print(sgp.serialnumber[1], HEX);
 //  Serial.println(sgp.serialnumber[2], HEX);
 }
-
 void SGP_Reading(String& val){
-  uint16_t raw;
+  int32_t voc_index;
   
-  raw = sgp.measureRaw();
+  voc_index = sgp.measureVocIndex();
 
   Serial.print("VOC: ");
-  ThingSpeak.setField(2, raw);
-  val+=(String)raw+",";
-  Serial.println(raw);
+  ThingSpeak.setField(2, voc_index);
+  val+=(String)voc_index+",";
+  Serial.println(voc_index);
   delay(1000);
 }
 
@@ -176,7 +180,7 @@ void calculate_pm(String &val)
   int pm10 = int(received_data[2]) * 256 + int(received_data[3]);
   ThingSpeak.setField(3, pm2);
   ThingSpeak.setField(4, pm10);
-  val+=(String)pm2+","+(String)pm10+"]";
+  val+=(String)pm2+","+(String)pm10+"]\"";
   Serial.println(pm2);
   Serial.println(pm10);
 }
@@ -207,6 +211,7 @@ void PM_Reading(String& val){
 void setup() {
   Serial.begin(9600);  
   delay(5000);
+  pinMode(LED_PIN,OUTPUT);
   ConnectToWifi();
   ThingSpeak.begin(client);
   SHT_setup();
@@ -216,11 +221,14 @@ void setup() {
 
 int counter = 0;
 int start=millis();
-String val="";
+
 void loop() {
+  digitalWrite(LED_PIN,HIGH);
+  delay(1000);
+  digitalWrite(LED_PIN,LOW);
   if(millis()-start>=30)
   {
-    val="";
+    String val="";
     SHT_Reading(val);
     CO2_Monitor(val);
     SGP_Reading(val);
@@ -231,7 +239,7 @@ void loop() {
   }
   else
   {
-    val="";
+    String val="";
     SHT_Reading(val);
     CO2_Monitor(val);
     SGP_Reading(val);
@@ -239,5 +247,5 @@ void loop() {
     ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
   }
   
-  Serial.println(val);
+  
 }
