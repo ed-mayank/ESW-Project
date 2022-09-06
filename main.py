@@ -1,6 +1,6 @@
 from oneM2M_functions import *
+import random
 from flask import Flask, render_template, redirect, url_for, jsonify
-
 uri_cse = "http://127.0.0.1:8080/~/in-cse/in-name"
 ae = "Indoor-Air-Pollution"
 cnt = "Data"
@@ -42,15 +42,10 @@ def ParseData(timestamp):
     formatstr+=' '
     return formatstr
 
-
-# CreateContainers()
-# create_data_cin(uri_cse+"/"+ae+"/"+cnt,"[1,2,3,4,5,6]")
-
-
 app =Flask(__name__)
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("dashboard.html")
 @app.route("/Table")
 def table():
     
@@ -142,6 +137,7 @@ def stuff2():
 
     return jsonify(content=data)
 
+
 @app.route("/Temperature")
 def Temperature():
     resp = requests.get(
@@ -158,7 +154,7 @@ def Temperature():
         if(dat=='['):
             begin=1
     # return(temp)
-    return render_template("temperature.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
+    return render_template("dashboard.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
 @app.route("/Humidity")
 def Humidity():
@@ -252,14 +248,12 @@ def PM10():
     # return(temp)  
     return render_template("pm10.html", content=float(temp),timestamp=result['m2m:cin']['ct'])
 
+@app.route("/random",methods=["GET"])
+def random_number():
+    
 
+    z=jsonify(result=random.randint(0,20))
+    return render_template("random.html",content=z)
 if __name__ == "__main__":
     app.run()
-
-
-
-
-
-
-
 

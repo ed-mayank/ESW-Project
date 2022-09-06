@@ -9,7 +9,7 @@
 #define WIFI_NETWORK "DontTry"
 #define WIFI_PASSWORD "12345678"
 //-----------------------------------------------------------------------
-String cse_ip = "192.168.16.181";        // YOUR IP from ipconfig/ifconfig
+String cse_ip = "192.168.39.181";        // YOUR IP from ipconfig/ifconfig
 String cse_port = "8080";
 String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
 String ae = "Indoor-Air-Pollution";
@@ -39,7 +39,7 @@ void CreateContentInstance(String& val)
   http.addHeader("X-M2M-Origin", "admin:admin");
   http.addHeader("Content-Type", "application/json;ty=4");
   http.addHeader("Content-Length", "100");
-  Serial.println(String(val));
+  Serial.println(val);
   int code = http.POST("{\"m2m:cin\": {\"cnf\":\"text\",\"con\": " + val + "}}");
   Serial.println(code);
   if (code == -1) {
@@ -89,7 +89,7 @@ void SHT_setup(){
 
 }
 
-void SHT_Reading(String& val){
+void SHT_Reading(String& val, float& t, float& h){
   sensors_event_t humidity, temp;
   
   uint32_t timestamp = millis();
@@ -106,6 +106,9 @@ void SHT_Reading(String& val){
 
     ThingSpeak.setField(5, temp.temperature);
     ThingSpeak.setField(6, humidity.relative_humidity);
+
+    t = temp.temperature;
+    h = humidity.relative_humidity;
 
     val=val+"\"["+(String)temp.temperature+","+(String)humidity.relative_humidity+",";
 //  Serial.print("Read duration (ms): ");
@@ -129,10 +132,21 @@ void SGP_setup(){
 //  Serial.print(sgp.serialnumber[1], HEX);
 //  Serial.println(sgp.serialnumber[2], HEX);
 }
-void SGP_Reading(String& val){
+
+void SGP_Reading(String& val, float t, float h){
   int32_t voc_index;
+
+  Serial.print("t: " );
+  Serial.println(t);
+  Serial.print("h: ");
+  Serial.println(h);
+
+  uint16_t raw;
   
-  voc_index = sgp.measureVocIndex();
+  raw = sgp.measureRaw();
+  Serial.print("raw: ");
+  Serial.println(raw);
+  voc_index = sgp.measureVocIndex(t,h);
 
   Serial.print("VOC: ");
   ThingSpeak.setField(2, voc_index);
@@ -216,36 +230,38 @@ void setup() {
   ThingSpeak.begin(client);
   SHT_setup();
   SGP_setup();
-  PM_setup();
+//  PM_setup();/
 }
 
 int counter = 0;
 int start=millis();
-
+String val="";
 void loop() {
-  digitalWrite(LED_PIN,HIGH);
-  delay(1000);
-  digitalWrite(LED_PIN,LOW);
-  if(millis()-start>=30)
-  {
-    String val="";
-    SHT_Reading(val);
-    CO2_Monitor(val);
-    SGP_Reading(val);
-    PM_Reading(val);
-    CreateContentInstance(val);
-    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-    start=millis();
-  }
-  else
-  {
-    String val="";
-    SHT_Reading(val);
-    CO2_Monitor(val);
-    SGP_Reading(val);
-    PM_Reading(val);
-    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-  }
-  
-  
+    digitalWrite(LED_PIN,HIGH);
+    delay(1000);
+    digitalWrite(LED_PIN,LOW);
+    if(millis()-start>=30000)
+    {
+      float t,h;
+      val="";
+      SHT_Reading(val,t,h);
+      CO2_Monitor(val);
+      
+      SGP_Reading(val,t,h);
+      PM_Reading(val);
+      CreateContentInstance(val);
+      ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+      start=millis();
+    }
+    else
+    {
+      float t,h;
+      val="";
+      SHT_Reading(val,t,h);
+      CO2_Monitor(val);
+      
+      SGP_Reading(val,t,h);
+      PM_Reading(val);
+      ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+    }
 }

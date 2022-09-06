@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Air Pollution Detector</title>
+    <meta
+      name="description"
+      content="Tailwind CSS Starter template - Admin theme, dashboard, or web application UI!"
+    />
+    <meta
+      name="keywords"
+      content="tailwind,tailwindcss,tailwind css,css,starter template,free template,fixed header, admin starter template, admin template, admin //console, example"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:400,700,800"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../favicon-16x16.png"
+    />
+    <link rel="manifest" href="../site.webmanifest" />
+    <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#00aba9" />
+    <meta name="theme-color" content="#3b7977" />
+
+    <meta
+      name="title"
+      content="Tailwind Toolbox - Free Starter Templates and Components for Tailwind CSS"
+    />
+    <meta
+      name="description"
+      content="Free open source Tailwind CSS starter Templates and Components to get you started quickly to creating websites in Tailwind CSS!"
+    />
+
+
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel=" stylesheet"
+    />
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet" />
+   
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
+      integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <style media="screen">
+      @import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;600&display=swap");
+      .highcharts-figure,
+      .highcharts-data-table table {
+        min-width: 200px;
+        max-width: 200px;
+        background-color: #070808;
+        /* margin: 1em auto; */
+        /* margin-top: 100px; */
+      }
+
+      #container1 {
+        height: 300px;
+        width: 500px;
+        /* margin-top: 100px; */
+      }
+
+      #container2 {
+        height: 300px;
+        width: 500px;
+        /* margin-top: 100px; */
+      }
+
+      #container3 {
+        height: 300px;
+        width: 500px;
+        /* margin-top: 100px; */
+      }
+
+      #container4 {
+        height: 300px;
+        width: 500px;
+        /* margin-top: 100px; */
+      }
+
+      #container5 {
+        height: 300px;
+        width: 500px;
+        /* margin-top: 100px; */
+      }
+
+      #container6 {
+        height: 300px;
+        width: 500px;
+        /* margin-top: 100px; */
+      }
+
+      .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #0e0d0d;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 5000px;
+      }
+
+      .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+      }
+
+      .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+      }
+
+      .highcharts-data-table td,
+      .highcharts-data-table th,
+      .highcharts-data-table caption {
+        padding: 0.5em;
+      }
+
+      .highcharts-data-table thead tr,
+      .highcharts-data-table tr:nth-child(even) {
+        background: #080808;
+      }
+
+      .highcharts-data-table tr:hover {
+        background: #070808;
+      }
+      .button {
+  /* background-color: #4CAF50; Green */
+  /* border: none; */
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button1 {
+  /* background-color: white;  */
+  color:white; 
+  /* border: 2px solid #4CAF50; */
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+    </style>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  </head>
+
+  <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+    <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+      <div class="bg-gray-800 pt-3">
+        <div
+          class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white"
+        >
+          <h3 class="font-bold pl-2">Aerometer<i style="font-size:24px" class="fa">&#xf0e4;</i> | <a href="/Date" class="button button1">Time Filters</a>  <a href="/About" class="button button1">About</a></h3>
+        </div>
+      </div>
+      <script type="text/javascript">
+        var tempElement1,humElement1,co2Element1,vocElement1,pm2Element1,pm10Element1;
+        var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+        $(function () {
+            window.setInterval(function () {
+                update_values1()
+            }, 1000);
+
+
+            function update_values1() {
+                $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                    function (data) {
+                      tempElement1=data['temperature'];
+                      document.getElementById("tempElement1").innerHTML = tempElement1+' &#8451';
+                      humElement1=data['humidity'];
+                      document.getElementById("humElement1").innerHTML = humElement1+' %';
+
+                        co2Element1=data['co2'];
+                      document.getElementById("co2Element1").innerHTML = co2Element1+' ppm';
+
+                        vocElement1=data['voc'];
+                      document.getElementById("vocElement1").innerHTML = vocElement1+' ppm';
+
+                        pm2Element1=data['pm2'];
+                      document.getElementById("pm2Element1").innerHTML = pm2Element1+' ppm';
+
+                        pm10Element1=data['pm10'];
+                      document.getElementById("pm10Element1").innerHTML = pm10Element1+' ppm';
+
+                        return
+                    });
+            }
+          });
+      </script>
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <!--Metric Card-->
+          <div
+            class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5"
+          >
+            <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-4">
+           
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold uppercase text-gray-600">
+                  Live Temperature Reading
+                </h5>
+                <h3 class="font-bold text-3xl">
+                  <span id="tempElement1"></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div
+            class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5"
+          >
+            <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-4">
+           
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold uppercase text-gray-600">
+                  Live Humidity Reading
+                </h5>
+                <h3 class="font-bold text-3xl">
+                  <span id="humElement1"></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div
+            class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5"
+          >
+            <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-4">
+              
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold uppercase text-gray-600">
+                  Live VOCs Reading
+                </h5>
+                <h3 class="font-bold text-3xl">
+                  <span id="vocElement1"></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div
+            class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5"
+          >
+            <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-4">
+                
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold uppercase text-gray-600">
+                  Live PM 2 Reading
+                </h5>
+                <h3 class="font-bold text-3xl">
+                  <span id="pm2Element1"></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div
+            class="bg-gradient-to-b from-indigo-200 to-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-xl p-5"
+          >
+            <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-4">
+                
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold uppercase text-gray-600">
+                  Live PM10 Reading
+                </h5>
+                <h3 class="font-bold text-3xl">
+                  <span id="pm10Element1"></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div
+            class="bg-gradient-to-b from-red-200 to-red-100 border-b-4 border-red-500 rounded-lg shadow-xl p-5"
+          >
+            <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-4">
+              
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold uppercase text-gray-600">
+                  Live CO 2 Reading
+                </h5>
+                <h3 class="font-bold text-3xl">
+                  <span id="co2Element1"></span
+                  ><span class="text-red-500"
+                    ><i class="fas fa-caret-up"></i
+                  ></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-row flex-wrap flex-grow mt-2">
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div class="bg-white border-transparent rounded-lg shadow-xl">
+            <div
+              class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2"
+            >
+              <h5 class="font-bold uppercase text-gray-600">
+                Temperature v/s Time
+              </h5>
+            </div>
+            <div class="p-5">
+              <figure class="highcharts-figure">
+                <div id="container1"></div>
+                <script type="text/javascript">
+                                                    var tempElement;
+                                                    var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                                                    $(function () {
+                                                        window.setInterval(function () {
+                                                            update_values1()
+                                                        }, 1000);
+
+
+                                                        function update_values1() {
+                                                            $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                                                                function (data) {
+                                                                    tempElement = data['temperature'];
+                                                                    //console.log(tempElement)
+                                                                    return
+                                                                }).fail(function() { alert('Internal Server Error!'); });
+                                                        }
+                                                    });
+                                                    Highcharts.chart('container1', {
+                                                        chart: {
+                                                            type: 'spline',
+                                                            animation: Highcharts.svg, // don't animate in old IE
+                                                            marginRight: 10,
+                                                            events: {
+                                                                load: function () {
+
+                                                                    // set up the updating of the chart each second
+                                                                    var series = this.series[0];
+                                                                    setInterval(function () {
+                                                                        var x = (new Date()).getTime(), // current time
+                                                                            y = tempElement;
+                                                                        series.addPoint([x, y], true, true);
+                                                                    }, 2000);
+                                                                }
+                                                            }
+                                                        },
+
+                                                        time: {
+                                                            useUTC: false
+                                                        },
+
+                                                        title: {
+                                                            text: ''
+                                                        },
+
+                                                        accessibility: {
+                                                            announceNewData: {
+                                                                enabled: true,
+                                                                minAnnounceInterval: 5000,
+                                                                announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                                                    if (newPoint) {
+                                                                        return 'New point added. Value: ' + newPoint.y;
+                                                                    }
+                                                                    return false;
+                                                                }
+                                                            }
+                                                        },
+
+                                                        xAxis: {
+                                                            type: 'datetime',
+                                                            tickPixelInterval: 5000
+                                                        },
+
+                                                        yAxis: {
+                                                            title: {
+                                                                text: 'Value'
+                                                            },
+                                                            plotLines: [{
+                                                                value: 0,
+                                                                width: 1,
+                                                                color: '#808080'
+                                                            }]
+                                                        },
+
+                                                        tooltip: {
+                                                            headerFormat: '<b>{series.name}</b><br/>',
+                                                            pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                                                        },
+
+                                                        legend: {
+                                                            enabled: false
+                                                        },
+
+                                                        exporting: {
+                                                            enabled: false
+                                                        },
+
+                                                        series: [{
+                                                            name: 'Temperature data',
+                                                            data: (function () {
+                                                                // generate an array of random data
+                                                                var data = [],
+                                                                    time = (new Date()).getTime(),
+                                                                    i;
+
+                                                                for (i = -19; i <= 0; i += 1) {
+                                                                    data.push({
+                                                                        x: time + i * 1000,
+                                                                        y: tempElement
+                                                                    });
+                                                                }
+                                                                return data;
+                                                            }())
+                                                        }]
+                                                    });
+                </script>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div class="bg-white border-transparent rounded-lg shadow-xl">
+            <div
+              class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2"
+            >
+              <h5 class="font-bold uppercase text-gray-600">
+                Humidity v/s Time
+              </h5>
+            </div>
+            <div class="p-5">
+              <figure class="highcharts-figure">
+                <div id="container2"></div>
+                <p class="highcharts-description">
+                </p>
+                <script type="text/javascript">
+                  var humElement;
+                  var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                  $(function () {
+                      window.setInterval(function () {
+                          update_values1()
+                      }, 1000);
+
+
+                      function update_values1() {
+                          $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                              function (data) {
+                                  humElement = data['humidity'];
+                                  return
+                              });
+                      }
+                  });
+
+                  Highcharts.chart('container2', {
+                      chart: {
+                          type: 'spline',
+                          animation: Highcharts.svg, 
+                          marginRight: 10,
+                          events: {
+                              load: function () {
+
+                                  var series = this.series[0];
+                                  setInterval(function () {
+                                      var x = (new Date()).getTime(), 
+                                          y = humElement;
+                                      series.addPoint([x, y], true, true);
+                                  }, 2000);
+                              }
+                          }
+                      },
+
+                      time: {
+                          useUTC: false
+                      },
+                      title: {
+                                text: ''
+                      },
+
+                      accessibility: {
+                          announceNewData: {
+                              enabled: true,
+                              minAnnounceInterval: 5000,
+                              announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                  if (newPoint) {
+                                      return 'New point added. Value: ' + newPoint.y;
+                                  }
+                                  return false;
+                              }
+                          }
+                      },
+
+                      xAxis: {
+                          type: 'datetime',
+                          tickPixelInterval: 5000
+                      },
+
+                      yAxis: {
+                          title: {
+                              text: 'Value'
+                          },
+                          plotLines: [{
+                              value: 0,
+                              width: 1,
+                              color: '#808080'
+                          }]
+                      },
+
+                      tooltip: {
+                          headerFormat: '<b>{series.name}</b><br/>',
+                          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                      },
+
+                      legend: {
+                          enabled: false
+                      },
+
+                      exporting: {
+                          enabled: false
+                      },
+
+                      series: [{
+                          name: 'Humidity Data',
+                          data: (function () {
+                              var data = [],
+                                  time = (new Date()).getTime(),
+                                  i;
+
+                              for (i = -19; i <= 0; i += 1) {
+                                  data.push({
+                                      x: time + i * 1000,
+                                      y: humElement
+                                  });
+                              }
+                              return data;
+                          }())
+                      }]
+                  });
+                </script>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div class="bg-white border-transparent rounded-lg shadow-xl">
+            <div
+              class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2"
+            >
+              <h5 class="font-bold uppercase text-gray-600">VOC v/s Time</h5>
+            </div>
+            <div class="p-5">
+              <figure class="highcharts-figure">
+                <div id="container3"></div>
+                <p class="highcharts-description">
+                </p>
+                <script type="text/javascript">
+                  var vocElement;
+                  var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                  $(function () {
+                      window.setInterval(function () {
+                          update_values1()
+                      }, 1000);
+
+
+                      function update_values1() {
+                          $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                              function (data) {
+                                  vocElement = data['voc'];
+                                  return
+                              });
+                      }
+                  });
+
+                  Highcharts.chart('container3', {
+                      chart: {
+                          type: 'spline',
+                          animation: Highcharts.svg, 
+                          marginRight: 10,
+                          events: {
+                              load: function () {
+
+                                  var series = this.series[0];
+                                  setInterval(function () {
+                                      var x = (new Date()).getTime(),
+                                          y = vocElement;
+                                      series.addPoint([x, y], true, true);
+                                  }, 2000);
+                              }
+                          }
+                      },
+
+                      time: {
+                          useUTC: false
+                      },
+
+                      title: {
+                                text: ''
+                      },
+
+                      accessibility: {
+                          announceNewData: {
+                              enabled: true,
+                              minAnnounceInterval: 5000,
+                              announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                  if (newPoint) {
+                                      return 'New point added. Value: ' + newPoint.y;
+                                  }
+                                  return false;
+                              }
+                          }
+                      },
+
+                      xAxis: {
+                          type: 'datetime',
+                          tickPixelInterval: 5000
+                      },
+
+                      yAxis: {
+                          title: {
+                              text: 'Value'
+                          },
+                          plotLines: [{
+                              value: 0,
+                              width: 1,
+                              color: '#808080'
+                          }]
+                      },
+
+                      tooltip: {
+                          headerFormat: '<b>{series.name}</b><br/>',
+                          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                      },
+
+                      legend: {
+                          enabled: false
+                      },
+
+                      exporting: {
+                          enabled: false
+                      },
+
+                      series: [{
+                          name: 'VOC data',
+                          data: (function () {
+                              var data = [],
+                                  time = (new Date()).getTime(),
+                                  i;
+
+                              for (i = -19; i <= 0; i += 1) {
+                                  data.push({
+                                      x: time + i * 1000,
+                                      y: vocElement
+                                  });
+                              }
+                              return data;
+                          }())
+                      }]
+                  });
+                </script>
+              </figure>
+            </div>
+          </div>
+          <!--/Graph Card-->
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div class="bg-white border-transparent rounded-lg shadow-xl">
+            <div
+              class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2"
+            >
+              <h5 class="font-bold uppercase text-gray-600">PM 2 v/s Time</h5>
+            </div>
+            <div class="p-5">
+              <figure class="highcharts-figure">
+                <div id="container4"></div>
+                <p class="highcharts-description">
+                </p>
+                <script type="text/javascript">
+                  var pm2Element;
+                  var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                  $(function () {
+                      window.setInterval(function () {
+                          update_values1()
+                      }, 1000);
+
+
+                      function update_values1() {
+                          $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                              function (data) {
+                                  pm2Element = data['pm2'];
+                                  return
+                              });
+                      }
+                  });
+
+
+                  Highcharts.chart('container4', {
+                      chart: {
+                          type: 'spline',
+                          animation: Highcharts.svg, // don't animate in old IE
+                          marginRight: 10,
+                          events: {
+                              load: function () {
+
+                                  var series = this.series[0];
+                                  setInterval(function () {
+                                      var x = (new Date()).getTime(), // current time
+                                          y = pm2Element;
+                                      series.addPoint([x, y], true, true);
+                                  }, 2000);
+                              }
+                          }
+                      },
+
+                      time: {
+                          useUTC: false
+                      },
+                      title: {
+                                text: ''
+                      },
+
+                      accessibility: {
+                          announceNewData: {
+                              enabled: true,
+                              minAnnounceInterval: 5000,
+                              announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                  if (newPoint) {
+                                      return 'New point added. Value: ' + newPoint.y;
+                                  }
+                                  return false;
+                              }
+                          }
+                      },
+
+                      xAxis: {
+                          type: 'datetime',
+                          tickPixelInterval: 5000
+                      },
+
+                      yAxis: {
+                          title: {
+                              text: 'Value'
+                          },
+                          plotLines: [{
+                              value: 0,
+                              width: 1,
+                              color: '#808080'
+                          }]
+                      },
+
+                      tooltip: {
+                          headerFormat: '<b>{series.name}</b><br/>',
+                          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                      },
+
+                      legend: {
+                          enabled: false
+                      },
+
+                      exporting: {
+                          enabled: false
+                      },
+
+                      series: [{
+                          name: 'PM 2 data',
+                          data: (function () {
+                              var data = [],
+                                  time = (new Date()).getTime(),
+                                  i;
+
+                              for (i = -19; i <= 0; i += 1) {
+                                  data.push({
+                                      x: time + i * 1000,
+                                      y: pm2Element
+                                  });
+                              }
+                              return data;
+                          }())
+                      }]
+                  });
+                </script>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div class="bg-white border-transparent rounded-lg shadow-xl">
+            <div
+              class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2"
+            >
+              <h5 class="font-bold uppercase text-gray-600">PM10 v/s Time</h5>
+            </div>
+            <div class="p-5">
+              <figure class="highcharts-figure">
+                <div id="container5"></div>
+                <p class="highcharts-description">
+                </p>
+                <script type="text/javascript">
+                  var pm10Element;
+                  var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                  $(function () {
+                      window.setInterval(function () {
+                          update_values1()
+                      }, 1000);
+
+
+                      function update_values1() {
+                          $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                              function (data) {
+                                  pm10Element = data['pm10'];
+                                  return
+                              });
+                      }
+                  });
+
+
+                  Highcharts.chart('container5', {
+                      chart: {
+                          type: 'spline',
+                          animation: Highcharts.svg, // don't animate in old IE
+                          marginRight: 10,
+                          events: {
+                              load: function () {
+
+                                  var series = this.series[0];
+                                  setInterval(function () {
+                                      var x = (new Date()).getTime(), // current time
+                                          y = pm10Element;
+                                      series.addPoint([x, y], true, true);
+                                  }, 2000);
+                              }
+                          }
+                      },
+
+                      time: {
+                          useUTC: false
+                      },
+                      title: {
+                                text: ''
+                      },
+
+                      accessibility: {
+                          announceNewData: {
+                              enabled: true,
+                              minAnnounceInterval: 5000,
+                              announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                  if (newPoint) {
+                                      return 'New point added. Value: ' + newPoint.y;
+                                  }
+                                  return false;
+                              }
+                          }
+                      },
+
+                      xAxis: {
+                          type: 'datetime',
+                          tickPixelInterval: 5000
+                      },
+
+                      yAxis: {
+                          title: {
+                              text: 'Value'
+                          },
+                          plotLines: [{
+                              value: 0,
+                              width: 1,
+                              color: '#808080'
+                          }]
+                      },
+
+                      tooltip: {
+                          headerFormat: '<b>{series.name}</b><br/>',
+                          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                      },
+
+                      legend: {
+                          enabled: false
+                      },
+
+                      exporting: {
+                          enabled: false
+                      },
+
+                      series: [{
+                          name: 'PM 10 data',
+                          data: (function () {
+                              var data = [],
+                                  time = (new Date()).getTime(),
+                                  i;
+
+                              for (i = -19; i <= 0; i += 1) {
+                                  data.push({
+                                      x: time + i * 1000,
+                                      y: pm10Element
+                                  });
+                              }
+                              return data;
+                          }())
+                      }]
+                  });
+                </script>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+          <div class="bg-white border-transparent rounded-lg shadow-xl">
+            <div
+              class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2"
+            >
+              <h5 class="font-bold uppercase text-gray-600">CO2 v/s Time</h5>
+            </div>
+            <div class="p-5">
+              <figure class="highcharts-figure">
+                <div id="container6"></div>
+                <p class="highcharts-description">
+                </p>
+                <script type="text/javascript">
+                  var co2Element;
+                  var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                  $(function () {
+                      window.setInterval(function () {
+                          update_values1()
+                      }, 1000);
+
+
+                      function update_values1() {
+                          $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+                              function (data) {
+                                  co2Element = data['co2'];
+                                  return
+                              });
+                      }
+                  });
+
+
+                  Highcharts.chart('container6', {
+                      chart: {
+                          type: 'spline',
+                          animation: Highcharts.svg, // don't animate in old IE
+                          marginRight: 10,
+                          events: {
+                              load: function () {
+
+                                  var series = this.series[0];
+                                  setInterval(function () {
+                                      var x = (new Date()).getTime(), // current time
+                                          y = co2Element;
+                                      series.addPoint([x, y], true, true);
+                                  }, 2000);
+                              }
+                          }
+                      },
+
+                      time: {
+                          useUTC: false
+                      },
+                      title: {
+                                text: ''
+                      },
+                      accessibility: {
+                          announceNewData: {
+                              enabled: true,
+                              minAnnounceInterval: 5000,
+                              announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                  if (newPoint) {
+                                      return 'New point added. Value: ' + newPoint.y;
+                                  }
+                                  return false;
+                              }
+                          }
+                      },
+
+                      xAxis: {
+                          type: 'datetime',
+                          tickPixelInterval: 5000
+                      },
+
+                      yAxis: {
+                          title: {
+                              text: 'Value'
+                          },
+                          plotLines: [{
+                              value: 0,
+                              width: 1,
+                              color: '#808080'
+                          }]
+                      },
+
+                      tooltip: {
+                          headerFormat: '<b>{series.name}</b><br/>',
+                          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                      },
+
+                      legend: {
+                          enabled: false
+                      },
+
+                      exporting: {
+                          enabled: false
+                      },
+
+                      series: [{
+                          name: 'CO2 data',
+                          data: (function () {
+                              var data = [],
+                                  time = (new Date()).getTime(),
+                                  i;
+
+                              for (i = -19; i <= 0; i += 1) {
+                                  data.push({
+                                      x: time + i * 1000,
+                                      y: co2Element
+                                  });
+                              }
+                              return data;
+                          }())
+                      }]
+                  });
+                </script>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      /*Toggle dropdown list*/
+      function toggleDD(myDropMenu) {
+        document.getElementById(myDropMenu).classList.toggle("invisible");
+      }
+      /*Filter dropdown options*/
+      function filterDD(myDropMenu, myDropMenuSearch) {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById(myDropMenuSearch);
+        filter = input.value.toUpperCase();
+        div = document.getElementById(myDropMenu);
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+          if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+          } else {
+            a[i].style.display = "none";
+          }
+        }
+      }
+      window.onclick = function (event) {
+        if (
+          !event.target.matches(".drop-button") &&
+          !event.target.matches(".drop-search")
+        ) {
+          var dropdowns = document.getElementsByClassName("dropdownlist");
+          for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (!openDropdown.classList.contains("invisible")) {
+              openDropdown.classList.add("invisible");
+            }
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
