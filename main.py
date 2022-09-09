@@ -141,7 +141,7 @@ def stuff():
 
 @app.route("/_stuff2")
 def stuff2():
-    url=f'https://api.thingspeak.com/channels/{ChannelId}/feeds.json?api_key={ReadApi}&results=1'
+    url=f'https://api.thingspeak.com/channels/{ChannelId}/feeds.json?api_key={ReadApi}'
     d=urlli.urlopen(url).read()
     dat=json.loads(d)
     data=dat["feeds"]
@@ -154,10 +154,10 @@ def stuff2():
     # for x in y['m2m:cin']:
     #     data.append(x['con']+x['ct'])
 
-    return jsonify(content=data)
+    return jsonify(data)
 
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0',port=5000)
 
