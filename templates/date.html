@@ -216,6 +216,99 @@
                 <input type="time" id="endtime" name="endtime" /><br><br>
               </form>
               <!-- </h3> -->
+              <div>
+                <section>
+                  <h1>Data Table</h1>
+
+
+                  <table id='table'>
+
+                    <tr>
+                      <th>Date</th>
+                      <th>Temperature</th>
+                      <th>Humidity</th>
+                      <th>CO2</th>
+                      <th>voc</th>
+                      <th>pm2</th>
+                      <th>pm10</th>
+                    </tr>
+                    <script>
+                      let startdate1;
+                      let enddate1;
+                      let starttime1;
+                      let endtime1;
+                      function othername() {
+                        startdate1 = document.getElementById("startdate").value;
+                        enddate1 = document.getElementById("enddate").value;
+                        starttime1 = document.getElementById("starttime").value;
+                        endtime1 = document.getElementById("endtime").value;
+
+                      }
+
+                      function enterdata(dat) {
+                        console.log(dat)
+                        var index = '';
+
+                        index += '<tr>';
+
+                        index += '<td>' +
+                          dat.created_at + '</td>';
+                        index += '<td>' +
+                          dat.field5 + '</td>';
+                        index += '<td>' +
+                          dat.field6 + '</td>';
+                        index += '<td>' +
+                          dat.field1 + '</td>';
+                        index += '<td>' +
+                          dat.field2 + '</td>';
+                        index += '<td>' +
+                          dat.field3 + '</td>';
+                        index += '<td>' +
+                          dat.field4 + '</td>';
+                        //INSERTING ROWS INTO TABLE 
+                        $('#table').append(index);
+
+                      }
+                      function getDat(dat, time) {
+                        let hyphensRemoveddate = dat.replaceAll('-', '');
+                        let hyphensRemovedtime = time.replaceAll(':', '');
+                        let result = hyphensRemoveddate.concat(hyphensRemovedtime)
+                        let res = parseInt(result)
+                        return res
+                      }
+                      var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                      $(function () {
+                        window.setInterval(function () {
+                          update_values1()
+                        }, 3000);
+
+
+                        function update_values1() {
+                          $.getJSON($SCRIPT_ROOT + '/_stuff2',
+
+                            function (data) {
+                              for (var i = 0; i < data.length; i++) {
+                                var x = (data[i].created_at);
+                                let y = x.split('T');
+                                othername();
+                                console.log(startdate1, enddate1, starttime1, endtime1)
+                                if (startdate1 != '' && enddate1 != '' && starttime1 != '' && endtime1 != '') {
+                                  var s = getDat(startdate1, starttime1);
+                                  var e = getDat(enddate1, endtime1);// 2022
+                                  var g = getDat(x.substring(0, 10), x.substring(11, 16));
+                                  if (g >= s && g <= e)
+                                    enterdata(data[i]);
+                                }
+
+
+                              }
+
+                            });
+                        }
+                      });
+                    </script>
+                </section>
+              </div>
             </div>
           </div>
         </div>
@@ -229,96 +322,10 @@
     </div>
   </div>
   </div>
-  <section>
-    <h1>Data Table</h1>
 
-
-    <table id='table'>
-
-      <tr>
-        <th>Date</th>
-        <th>Temperature</th>
-        <th>Humidity</th>
-        <th>CO2</th>
-        <th>voc</th>
-        <th>pm2</th>
-        <th>pm10</th>
-      </tr>
-      <script>
-        let startdate1;
-        let enddate1;
-        let starttime1;
-        let endtime1;
-        function othername() {
-          startdate1 = document.getElementById("startdate").value;
-          enddate1 = document.getElementById("enddate").value;
-          starttime1 = document.getElementById("starttime").value;
-          endtime1 = document.getElementById("endtime").value;
-
-        }
-      
-        function enterdata(dat) {
-          var index = '';
-          
-            index += '<tr>';
-
-            index += '<td>' +
-              dat.created_at + '</td>';
-            index += '<td>' +
-              dat.field5 + '</td>';
-            index += '<td>' +
-              dat.field6 + '</td>';
-            index += '<td>' +
-              dat.field1 + '</td>';
-            index += '<td>' +
-              dat.field2 + '</td>';
-            index += '<td>' +
-              dat.field3 + '</td>';
-            index += '<td>' +
-              dat.field4 + '</td>';
-          //INSERTING ROWS INTO TABLE 
-          $('#table').append(index);
-
-        }
-        function getDat(dat, time)
-        {
-
-        }
-        var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
-        $(function () {
-          window.setInterval(function () {
-            update_values1()
-          }, 30000);
-
-
-          function update_values1() {
-            $.getJSON($SCRIPT_ROOT + '/_stuff2',
-
-              function (data) {
-                for (var i = 0; i < data.length; i++) {
-                  var x = (data[i].created_at);
-                  let y = x.split('T');
-                  console.log(y);
-                  othername();
-                  if (startdate1 != '' && enddate1 != '' && starttime1 != '' && endtime1 != '') {
-                    var s=getDat(startdate1,starttime1);
-                    var e= getDat(enddate1,endtime1);// 2022
-                    var g= getDat(x.substring(0,10),x.substring(11,19));
-                    if(g>=s && g<=e)
-                      enterdata(data[i]);
-                  }
-
-              
-                }
-
-              });
-          }
-        });
-      </script>
-  </section>
   <script>
 
-    
+
 
 
 

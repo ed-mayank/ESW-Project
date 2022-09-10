@@ -9,10 +9,10 @@
 #define WIFI_NETWORK "esw-m19@iiith"
 #define WIFI_PASSWORD "e5W-eMai@3!20hOct"
 //-----------------------------------------------------------------------
-String cse_ip = "192.168.39.141";        // YOUR IP from ipconfig/ifconfig
-String cse_port = "8080";
-String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
-String ae = "Indoor-Air-Pollution";
+String cse_ip = "esw-onem2m.iiit.ac.in";        // YOUR IP from ipconfig/ifconfig
+String cse_port = "443";
+String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/Team-6/";
+String ae = "Node-1";
 String cnt = "Data";
 //-----------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ void CreateContentInstance(String& val)
 {
   HTTPClient http;
   http.begin(server + ae + "/" + cnt + "/");
-  http.addHeader("X-M2M-Origin", "admin:admin");
+  http.addHeader("X-M2M-Origin", "Li640e:eTUBds");
   http.addHeader("Content-Type", "application/json;ty=4");
   http.addHeader("Content-Length", "100");
   Serial.println(val);

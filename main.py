@@ -3,13 +3,13 @@ from flask import Flask, render_template, redirect, url_for, jsonify
 import urllib.request as urlli
 import json
 
-uri_cse = "http://127.0.0.1:8080/~/in-cse/in-name"
-ae = "Indoor-Air-Pollution"
+uri_cse = "http://esw-onem2m.iiit.ac.in:443/~/in-cse/in-name/Team-6"
+ae = "Node-1"
 cnt = "Data"
 
 headers = {
-    'X-M2M-Origin': 'admin:admin',
-    'Content-type': 'application/json'
+    'X-M2M-Origin': 'Li640e:eTUBds',
+    'Content-type': 'application/json;ty=4'
 }
 
 ChannelId='1840267'
