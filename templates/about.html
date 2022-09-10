@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -228,18 +228,240 @@
     <h1 style="margin-top: 80px; margin-left: 300px;">About</h1>
 
     <div class="about-profile">Project: Indoor Air Pollution<br></div>
-    <div class="about-profile">Motivation:<br></div>
-    <div class="about-content">
-During Covid-19, We’ve kept ourselves safe and healthy by careful protection yet without effective information. Now it’s time to be out of the woods and learn indoor air quality solution.
-People spend 90% of their time indoors and so the health problems that result from exposure to indoor pollution increases, the contaminants in indoor air could damage people’s health.
-    </div>
-    <div class="about-profile">Description:<br></div>
-    <div class="about-content">
-      We use the sensor to sense the CO2, VOCs, Temperature, Humidity, PM2.5 and PM10 at home or any indoor place. Based on reading of data, we will
-analyse if that place is fit for living at that time.
-  </div>
+    
 
 
 
   </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Air Pollution Detector</title>
+  <meta name="description" content="Tailwind CSS Starter template - Admin theme, dashboard, or web application UI!" />
+  <meta name="keywords"
+    content="tailwind,tailwindcss,tailwind css,css,starter template,free template,fixed header, admin starter template, admin template, admin //console, example" />
+
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet" />
+  <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5" />
+  <meta name="msapplication-TileColor" content="#00aba9" />
+  <meta name="theme-color" content="#3b7977" />
+
+  <meta name="title" content="Tailwind Toolbox - Free Starter Templates and Components for Tailwind CSS" />
+  <meta name="description"
+    content="Free open source Tailwind CSS starter Templates and Components to get you started quickly to creating websites in Tailwind CSS!" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+  <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel=" stylesheet" />
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
+    integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <style media="screen">
+    @import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;600&display=swap");
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+      min-width: 200px;
+      max-width: 200px;
+      background-color: #070808;
+      /* margin: 1em auto; */
+      /* margin-top: 100px; */
+    }
+
+    #container1 {
+      height: 300px;
+      width: 500px;
+      /* margin-top: 100px; */
+    }
+
+    #container2 {
+      height: 300px;
+      width: 500px;
+      /* margin-top: 100px; */
+    }
+
+    #container3 {
+      height: 300px;
+      width: 500px;
+      /* margin-top: 100px; */
+    }
+
+    #container4 {
+      height: 300px;
+      width: 500px;
+      /* margin-top: 100px; */
+    }
+
+    #container5 {
+      height: 300px;
+      width: 500px;
+      /* margin-top: 100px; */
+    }
+
+    #container6 {
+      height: 300px;
+      width: 500px;
+      /* margin-top: 100px; */
+    }
+
+    .highcharts-data-table table {
+      font-family: Verdana, sans-serif;
+      border-collapse: collapse;
+      border: 1px solid #0e0d0d;
+      margin: 10px auto;
+      text-align: center;
+      width: 100%;
+      max-width: 5000px;
+    }
+
+    .highcharts-data-table caption {
+      padding: 1em 0;
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    .highcharts-data-table th {
+      font-weight: 600;
+      padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+      padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+      background: #080808;
+    }
+
+    .highcharts-data-table tr:hover {
+      background: #070808;
+    }
+
+    .button {
+      /* background-color: #4CAF50; Green */
+      /* border: none; */
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .button1 {
+      /* background-color: white;  */
+      color: white;
+      /* border: 2px solid #4CAF50; */
+    }
+
+    .button1:hover {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    input {
+      background-color: rgb(0, 200, 0);
+      color: white;
+    }
+
+    table {
+      margin: 0 auto;
+      font-size: large;
+      border: 1px solid black;
+    }
+
+    h1 {
+      text-align: center;
+      color: #006600;
+      font-size: xx-large;
+      font-family: 'Gill Sans',
+        'Gill Sans MT', ' Calibri',
+        'Trebuchet MS', 'sans-serif';
+    }
+
+    td {
+      background-color: #E4F5D4;
+      border: 1px solid black;
+    }
+
+    th,
+    td {
+      font-weight: bold;
+      border: 1px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+
+    td {
+      font-weight: lighter;
+    }
+  </style>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
+  <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
+</head>
+
+<body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+  <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+    <div class="bg-gray-800 pt-3">
+      <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+        <h3 class="font-bold pl-2">
+          Aerometer<i style="font-size: 24px" class="fa">&#xf0e4;</i> |
+          <a href="/Date" class="button button1">Time Filters</a>
+          <a href="/About" class="button button1">About</a>
+        </h3>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap">
+      <div class="w-full p-6">
+        <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
+          <div class="flex flex-row items-center">
+            <div class="flex-shrink pr-4"></div>
+            <div class="flex-1 ">
+              <h1 class="font-bold uppercase text-gray-600">
+                About
+              </h1>
+              <h3 style="font-size:40px"><b>Motivation:</b></h3>
+              <p style="font-size:40px">
+                During Covid-19, We’ve kept ourselves safe and healthy by careful protection yet without effective
+                information.<br> Now it’s time to be out of the woods and learn indoor air quality solution.<br>
+                People spend 90% of their time indoors and so the health problems that result from exposure to indoor
+                pollution increases, the contaminants in indoor air could damage people’s health.<br>
+              </p>
+              <h3 style="font-size:40px"><b>Description:</b></h3>
+              <p style="font-size:40px">
+                We use the sensor to sense the CO2, VOCs, Temperature, Humidity, PM2.5 and PM10 at home or any indoor
+                place.<br> Based on reading of data, we will
+                analyse if that place is fit for living at that time.<br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
 </html>

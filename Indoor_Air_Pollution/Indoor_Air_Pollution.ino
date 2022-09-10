@@ -6,10 +6,10 @@
 #include  <ArduinoJson.h>
 #include "HTTPClient.h"
 
-#define WIFI_NETWORK "DontTry"
-#define WIFI_PASSWORD "12345678"
+#define WIFI_NETWORK "esw-m19@iiith"
+#define WIFI_PASSWORD "e5W-eMai@3!20hOct"
 //-----------------------------------------------------------------------
-String cse_ip = "192.168.39.181";        // YOUR IP from ipconfig/ifconfig
+String cse_ip = "192.168.39.141";        // YOUR IP from ipconfig/ifconfig
 String cse_port = "8080";
 String server = "http://" + cse_ip + ":" + cse_port + "/~/in-cse/in-name/";
 String ae = "Indoor-Air-Pollution";

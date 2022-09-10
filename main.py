@@ -1,6 +1,7 @@
 from oneM2M_functions import *
 from flask import Flask, render_template, redirect, url_for, jsonify
 import urllib.request as urlli
+import json
 
 uri_cse = "http://127.0.0.1:8080/~/in-cse/in-name"
 ae = "Indoor-Air-Pollution"
