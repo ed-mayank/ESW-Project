@@ -202,9 +202,9 @@
 
                     function (data) {
                       tempElement1=data['temperature'];
-                      document.getElementById("tempElement1").innerHTML = tempElement1+' &#8451';
+                      document.getElementById("tempElement1").innerHTML = (parseFloat(tempElement1)).toFixed(2)+' &#8451';
                       humElement1=data['humidity'];
-                      document.getElementById("humElement1").innerHTML = humElement1+' %';
+                      document.getElementById("humElement1").innerHTML = (parseFloat(humElement1)).toFixed(2)+' %';
 
                         co2Element1=data['co2'];
                       document.getElementById("co2Element1").innerHTML = co2Element1+' ppm';
