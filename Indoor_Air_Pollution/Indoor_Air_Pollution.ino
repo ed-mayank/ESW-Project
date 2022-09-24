@@ -5,9 +5,12 @@
 #include "ThingSpeak.h"
 #include  <ArduinoJson.h>
 #include "HTTPClient.h"
+//
+#define WIFI_NETWORK "JioFi3_71BDE4"
+#define WIFI_PASSWORD "3dm2bjuc22"
 
-#define WIFI_NETWORK "esw-m19@iiith"
-#define WIFI_PASSWORD "e5W-eMai@3!20hOct"
+//#define WIFI_NETWORK "esw-m19@iiith/"
+//#define WIFI_PASSWORD "e5W-eMai@3!20/hO/ct"
 //-----------------------------------------------------------------------
 String cse_ip = "esw-onem2m.iiit.ac.in";        // YOUR IP from ipconfig/ifconfig
 String cse_port = "443";
@@ -228,9 +231,9 @@ void setup() {
   pinMode(LED_PIN,OUTPUT);
   ConnectToWifi();
   ThingSpeak.begin(client);
-  SHT_setup();
-  SGP_setup();
-//  PM_setup();/
+ // SHT_setup();
+  //SGP_setup();
+  PM_setup();
 }
 
 int counter = 0;
@@ -244,12 +247,12 @@ void loop() {
     {
       float t,h;
       val="";
-      SHT_Reading(val,t,h);
-      CO2_Monitor(val);
+      //SHT_Reading(val,t,h);
+      //CO2_Monitor(val);
       
-      SGP_Reading(val,t,h);
+      //SGP_Reading(val,t,h);
       PM_Reading(val);
-      CreateContentInstance(val);
+      //CreateContentInstance(val);
       ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
       start=millis();
     }
@@ -257,10 +260,10 @@ void loop() {
     {
       float t,h;
       val="";
-      SHT_Reading(val,t,h);
-      CO2_Monitor(val);
+      //SHT_Reading(val,t,h);
+      //CO2_Monitor(val);
       
-      SGP_Reading(val,t,h);
+      //SGP_Reading(val,t,h);
       PM_Reading(val);
       ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
     }
