@@ -35,8 +35,6 @@
       sizes="16x16"
       href="../favicon-16x16.png"
     />
-    <link rel="manifest" href="../site.webmanifest" />
-    <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#00aba9" />
     <meta name="theme-color" content="#3b7977" />
 
@@ -182,7 +180,9 @@
           class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white"
         >
           <h3 class="font-bold pl-2">
-            Aerometer<i style="font-size: 24px" class="fa">&#xf0e4;</i> |
+            <a href="/" class="button button1" style="font-size: 30px"
+              >Aerometer |</a
+            >
             <a href="/Date" class="button button1">Time Filters</a>
             <a href="/About" class="button button1">About</a>
           </h3>
@@ -203,14 +203,16 @@
                     function (data) {
                       tempElement1=data['temperature'];
                       document.getElementById("tempElement1").innerHTML = (parseFloat(tempElement1)).toFixed(2)+' &#8451';
+                      
                       humElement1=data['humidity'];
                       document.getElementById("humElement1").innerHTML = (parseFloat(humElement1)).toFixed(2)+' %';
+            
 
                         co2Element1=data['co2'];
                       document.getElementById("co2Element1").innerHTML = co2Element1+' ppm';
 
                         vocElement1=data['voc'];
-                      document.getElementById("vocElement1").innerHTML = vocElement1+' ppm';
+                      document.getElementById("vocElement1").innerHTML = vocElement1;
 
                         pm2Element1=data['pm2'];
                       document.getElementById("pm2Element1").innerHTML = pm2Element1+' ppm';
@@ -301,7 +303,7 @@
               <div class="flex-shrink pr-4"></div>
               <div class="flex-1 text-right md:text-center">
                 <h5 class="font-bold uppercase text-gray-600">
-                  Live PM10 Reading
+                  Live PM 10 Reading
                 </h5>
                 <h3 class="font-bold text-3xl">
                   <span id="pm10Element1"></span>
@@ -343,113 +345,222 @@
               <figure class="highcharts-figure">
                 <div id="container1"></div>
                 <script type="text/javascript">
-                  var tempElement;
-                  var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
-                  $(function () {
-                      window.setInterval(function () {
-                          update_values1()
-                      }, 1000);
+                                 var tempElement;
+                                 var temp1,temp2,temp3,temp4,temp5,y8;
+                                 var timeElement;
+                                 var $SCRIPT_ROOT = {{ request.script_root| tojson | safe }};
+                                 // $(function () {
+                                 //     window.setInterval(function () {
+                                 //         update_values()
+
+                                 //     }, 1000);
 
 
-                      function update_values1() {
-                          $.getJSON($SCRIPT_ROOT + '/_stuff',
+                                 //     function update_values() {
+                                 //         $.getJSON($SCRIPT_ROOT + '/_stuff3',
 
-                              function (data) {
-                                  tempElement = data['temperature'];
-                                  console.log(tempElement)
-                                  return
-                              })
-                      }
-                  });
-                  Highcharts.chart('container1', {
-                      chart: {
-                          type: 'spline',
-                          animation: Highcharts.svg, // don't animate in old IE
-                          marginRight: 10,
-                          events: {
-                              load: function () {
+                                 //             function (data) {
+                                 //                 tempElement = data[0].field5;
+                                 //                 // timeElement = data['timestamp'];
+                                 //                 return
+                                 //             })
+                                 //     }
+                                 // });
 
-                                  // set up the updating of the chart each second
-                                  var series = this.series[0];
-                                  c=0
-                                  
-                                  setInterval(function () {
-                                      var x = (new Date()).getTime(), // current time
-                                          y = tempElement;
-                                      series.addPoint([x, y], true, true);
-                                  }, 20000);
-                              }
-                          }
-                      },
 
-                      time: {
-                          useUTC: false
-                      },
+                                 $(function () {
+                                     window.setInterval(function () {
+                                         update_values1()
+                                     }, 1000);
 
-                      title: {
-                          text: ''
-                      },
 
-                      accessibility: {
-                          announceNewData: {
-                              enabled: true,
-                              minAnnounceInterval: 5000,
-                              announcementFormatter: function (allSeries, newSeries, newPoint) {
-                                  if (newPoint) {
-                                      return 'New point added. Value: ' + newPoint.y;
-                                  }
-                                  return false;
-                              }
-                          }
-                      },
+                                     function update_values1() {
+                                         $.getJSON($SCRIPT_ROOT + '/_stuff',
 
-                      xAxis: {
-                          type: 'datetime',
-                          tickPixelInterval: 5000
-                      },
+                                             function (data) {
+                                                 tempElement = data['temperature'];
+                                                 timeElement = data['timestamp'];
+                                                 return
+                                             })
+                                     }
+                                 });
 
-                      yAxis: {
-                          title: {
-                              text: 'Value'
-                          },
-                          plotLines: [{
-                              value: 0,
-                              width: 1,
-                              color: '#808080'
-                          }]
-                      },
+                                 Highcharts.chart('container1', {
+                                     chart: {
+                                         type: 'spline',
+                                         animation: Highcharts.svg, 
+                                         marginRight: 10,
+                                         events: {
+                                             load: function () {
 
-                      tooltip: {
-                          headerFormat: '<b>{series.name}</b><br/>',
-                          pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
-                      },
+                                                 // set up the updating of the chart each second
+                                                 var series = this.series[0];
+                                                 setTimeout(function () {
+                                                     var x = new Date().getTime()+5000, // current time
+                                                         y = tempElement;
 
-                      legend: {
-                          enabled: false
-                      },
+                                                     series.addPoint([x, y], true, true);
+                                                 }, 5000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+10000, // current time
+                                                         y = tempElement;
 
-                      exporting: {
-                          enabled: false
-                      },
+                                                     series.addPoint([x, y]);
+                                                     console.log(series)
 
-                      series: [{
-                          name: 'Temperature data',
-                          data: (function () {
-                              // generate an array of random data
-                              var data = [],
-                                  time = (new Date()).getTime(),
-                                  i;
+                                                 }, 10000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+20000, // current time
+                                                         y = tempElement;
 
-                              for (i = -19; i <= 0; i += 1) {
-                                  data.push({
-                                      x: time + i * 1000,
-                                      y: tempElement
-                                  });
-                              }
-                              return data;
-                          }())
-                      }]
-                  });
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 20000);
+                                                 setInterval(function () {
+                                                     var x = (new Date()).getTime(), // current time
+                                                         y = tempElement;
+
+                                                     series.addPoint([x, y], true, true);
+                                                 }, 30000);
+                                             }
+                                         }
+                                     },
+
+                                     time: {
+                                         useUTC: false
+                                     },
+
+                                     title: {
+                                         text: ''
+                                     },
+
+                                     accessibility: {
+                                         announceNewData: {
+                                             enabled: true,
+                                             minAnnounceInterval: 3000,
+                                             announcementFormatter: function (allSeries, newSeries, newPoint) {
+                                                 if (newPoint) {
+                                                     return 'New point added. Value: ' + newPoint.y;
+                                                 }
+                                                 return false;
+                                             }
+                                         }
+                                     },
+
+                                     xAxis: {
+                                         type: 'datetime',
+                                         tickPixelInterval: 1000
+                                     },
+
+                                     yAxis: {
+                                         title: {
+                                             text: 'Value'
+                                         },
+                                         plotLines: [{
+                                             value: 0,
+                                             width: 0,
+                                             color: '#808080'
+                                         }],
+                                         plotBands: [
+                     { //
+                        from: 0,
+                        to: 10,
+                        color: '#596CF9',
+
+                        label: {
+                           text: 'Very cold',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { 
+                        from: 10,
+                        to: 20,
+                        color: '#59D7F9',
+
+                        label: {
+                           text: 'cold',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     {
+                        from: 20,
+                        to: 28,
+                        color: '#F9F759',
+
+                        label: {
+                           text: 'Normal',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     {
+                        from: 28,
+                        to: 38,
+                        color: '#F9B859',
+
+                        label: {
+                           text: 'Hot',
+                           style: {
+                              color: '#606060',
+
+                              fontsize: "20px"
+                           }
+                        }
+                     },
+                     {
+                        from: 38,
+                        to: 60,
+                        color: '#F75355',
+
+                        label: {
+                           text: 'very hot',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     }
+                  ]
+                                     },
+
+                                     tooltip: {
+                                         headerFormat: '<b>{series.name}</b><br/>',
+                                         pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                                     },
+
+                                     legend: {
+                                         enabled: false
+                                     },
+
+                                     exporting: {
+                                         enabled: false
+                                     },
+
+                                     series: [{
+                                         name: 'Temperature data',
+                          color: 'black',
+
+                                         data: (function () {
+                                             // generate an array of random data
+                                             var data = [],
+                                                 time = (new Date()).getTime(),
+                                                 i;
+
+                                             for (i = -19; i <= 0; i += 1) {
+                                                 data.push({
+                                                     x: time + i * 1000,
+                                                     y: tempElement
+                                                 });
+                                             }
+                                             return data;
+                                         }())
+                                     }]
+                                 });
                 </script>
               </figure>
             </div>
@@ -497,11 +608,35 @@
                               load: function () {
 
                                   var series = this.series[0];
+                                  setTimeout(function () {
+                                                     var x = (new Date()).getTime()+5000, // current time
+                                                         y = humElement;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 5000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+10000, // current time
+                                                         y = humElement;
+
+                                                     series.addPoint([x, y]);
+                                                     console.log(series)
+
+                                                 }, 10000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+20000, // current time
+                                                         y = humElement;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 20000);
                                   setInterval(function () {
                                       var x = (new Date()).getTime(),
                                           y = humElement;
                                       series.addPoint([x, y], true, true);
-                                  }, 20000);
+                                  }, 30000);
                               }
                           }
                       },
@@ -516,7 +651,7 @@
                       accessibility: {
                           announceNewData: {
                               enabled: true,
-                              minAnnounceInterval: 5000,
+                              minAnnounceInterval: 3000,
                               announcementFormatter: function (allSeries, newSeries, newPoint) {
                                   if (newPoint) {
                                       return 'New point added. Value: ' + newPoint.y;
@@ -528,7 +663,7 @@
 
                       xAxis: {
                           type: 'datetime',
-                          tickPixelInterval: 5000
+                          tickPixelInterval: 1000
                       },
 
                       yAxis: {
@@ -539,7 +674,71 @@
                               value: 0,
                               width: 1,
                               color: '#808080'
-                          }]
+                          }],
+                          plotBands: [
+                     { //
+                        from: 0,
+                        to: 30,
+                        color: '#596CF9',
+
+                        label: {
+                           text: 'Very low humidity',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Light breeze
+                        from: 30,
+                        to: 60,
+                        color: '#59D7F9',
+
+                        label: {
+                           text: 'low humidity',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Gentle breeze
+                        from: 60,
+                        to: 75,
+                        color: '#F9F759',
+
+                        label: {
+                           text: 'Normal',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Moderate breeze
+                        from: 75,
+                        to: 85,
+                        color: '#F9B859',
+
+                        label: {
+                           text: 'High Humidity',
+                           style: {
+                              color: '#606060',
+
+                              fontsize: "20px"
+                           }
+                        }
+                     },
+                     { // Fresh breeze
+                        from: 85,
+                        to: 100,
+                        color: '#F75355',
+
+                        label: {
+                           text: 'very high humidity',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     }
+                  ]
                       },
 
                       tooltip: {
@@ -557,6 +756,8 @@
 
                       series: [{
                           name: 'Humidity Data',
+                          color: 'black',
+
                           data: (function () {
                               var data = [],
                                   time = (new Date()).getTime(),
@@ -617,11 +818,35 @@
                               load: function () {
 
                                   var series = this.series[0];
+                                  setTimeout(function () {
+                                                     var x = (new Date()).getTime()+5000, // current time
+                                                         y = vocElement;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 5000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+10000, // current time
+                                                         y = vocElement;
+
+                                                     series.addPoint([x, y]);
+                                                     console.log(series)
+
+                                                 }, 10000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+20000, // current time
+                                                         y = vocElement;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 20000);
                                   setInterval(function () {
                                       var x = (new Date()).getTime(),
                                           y = vocElement;
                                       series.addPoint([x, y], true, true);
-                                  }, 20000);
+                                  }, 30000);
                               }
                           }
                       },
@@ -637,7 +862,7 @@
                       accessibility: {
                           announceNewData: {
                               enabled: true,
-                              minAnnounceInterval: 5000,
+                              minAnnounceInterval: 3000,
                               announcementFormatter: function (allSeries, newSeries, newPoint) {
                                   if (newPoint) {
                                       return 'New point added. Value: ' + newPoint.y;
@@ -649,7 +874,7 @@
 
                       xAxis: {
                           type: 'datetime',
-                          tickPixelInterval: 5000
+                          tickPixelInterval: 1000
                       },
 
                       yAxis: {
@@ -660,7 +885,59 @@
                               value: 0,
                               width: 1,
                               color: '#808080'
-                          }]
+                          }],
+                          plotBands: [
+                     { //
+                        from: 0,
+                        to: 100,
+                        color: 'blue',
+
+                        label: {
+                           text: 'VOC decreased',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Light breeze
+                        from: 100,
+                        to: 150,
+                        color: 'yellow',
+
+                        label: {
+                           text: 'VOC average',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Gentle breeze
+                        from: 150,
+                        to: 200,
+                        color: 'orange',
+
+                        label: {
+                           text: 'VOC increased',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Moderate breeze
+                        from: 200,
+                        to: 1000,
+                        color: '#F75355',
+
+                        label: {
+                           text: 'VOC very high',
+                           style: {
+                              color: '#606060',
+
+                              fontsize: "20px"
+                           }
+                        }
+                     }
+                  ]
                       },
 
                       tooltip: {
@@ -678,6 +955,8 @@
 
                       series: [{
                           name: 'VOC data',
+                          color: 'black',
+
                           data: (function () {
                               var data = [],
                                   time = (new Date()).getTime(),
@@ -739,11 +1018,35 @@
                               load: function () {
 
                                   var series = this.series[0];
+                                  setTimeout(function () {
+                                                     var x = (new Date()).getTime()+5000, // current time
+                                                         y = pm2Element;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 5000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+10000, // current time
+                                                         y = pm2Element;
+
+                                                     series.addPoint([x, y]);
+                                                     console.log(series)
+
+                                                 }, 10000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+20000, // current time
+                                                         y = pm2Element;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 20000);
                                   setInterval(function () {
                                       var x = (new Date()).getTime(), // current time
                                           y = pm2Element;
                                       series.addPoint([x, y], true, true);
-                                  }, 20000);
+                                  }, 30000);
                               }
                           }
                       },
@@ -758,7 +1061,7 @@
                       accessibility: {
                           announceNewData: {
                               enabled: true,
-                              minAnnounceInterval: 5000,
+                              minAnnounceInterval: 3000,
                               announcementFormatter: function (allSeries, newSeries, newPoint) {
                                   if (newPoint) {
                                       return 'New point added. Value: ' + newPoint.y;
@@ -770,7 +1073,7 @@
 
                       xAxis: {
                           type: 'datetime',
-                          tickPixelInterval: 5000
+                          tickPixelInterval: 1000
                       },
 
                       yAxis: {
@@ -781,7 +1084,59 @@
                               value: 0,
                               width: 1,
                               color: '#808080'
-                          }]
+                          }],
+                          plotBands: [
+                     { //
+                        from: 0,
+                        to: 15,
+                        color: 'blue',
+
+                        label: {
+                           text: 'Low PM 2.5',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Light breeze
+                        from: 15,
+                        to: 25,
+                        color: 'yellow',
+
+                        label: {
+                           text: 'average PM 2.5',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Gentle breeze
+                        from: 25,
+                        to: 50,
+                        color: 'orange',
+
+                        label: {
+                           text: 'High PM 2.5',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Moderate breeze
+                        from: 50,
+                        to: 10000,
+                        color: '#F75355',
+
+                        label: {
+                           text: 'Very High PM 2.5',
+                           style: {
+                              color: '#606060',
+
+                              fontsize: "20px"
+                           }
+                        }
+                     }
+                  ]
                       },
 
                       tooltip: {
@@ -799,6 +1154,7 @@
 
                       series: [{
                           name: 'PM 2 data',
+                          color: 'black',
                           data: (function () {
                               var data = [],
                                   time = (new Date()).getTime(),
@@ -859,11 +1215,35 @@
                               load: function () {
 
                                   var series = this.series[0];
+                                  setTimeout(function () {
+                                                     var x = (new Date()).getTime()+5000, // current time
+                                                         y = pm10Element;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 5000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+10000, // current time
+                                                         y = pm10Element;
+
+                                                     series.addPoint([x, y]);
+                                                     console.log(series)
+
+                                                 }, 10000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+20000, // current time
+                                                         y = pm10Element;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 20000);
                                   setInterval(function () {
                                       var x = (new Date()).getTime(), // current time
                                           y = pm10Element;
                                       series.addPoint([x, y], true, true);
-                                  }, 20000);
+                                  }, 30000);
                               }
                           }
                       },
@@ -878,7 +1258,7 @@
                       accessibility: {
                           announceNewData: {
                               enabled: true,
-                              minAnnounceInterval: 5000,
+                              minAnnounceInterval: 3000,
                               announcementFormatter: function (allSeries, newSeries, newPoint) {
                                   if (newPoint) {
                                       return 'New point added. Value: ' + newPoint.y;
@@ -890,7 +1270,7 @@
 
                       xAxis: {
                           type: 'datetime',
-                          tickPixelInterval: 5000
+                          tickPixelInterval: 1000
                       },
 
                       yAxis: {
@@ -901,7 +1281,59 @@
                               value: 0,
                               width: 1,
                               color: '#808080'
-                          }]
+                          }],
+                          plotBands: [
+                     { //
+                        from: 0,
+                        to: 15,
+                        color: 'rgba(68, 170, 213, 0.1)',
+
+                        label: {
+                           text: 'Very cold',
+                           style: {
+                              color: 'blue'
+                           }
+                        }
+                     },
+                     { // Light breeze
+                        from: 15,
+                        to: 50,
+                        color: '#28E6F2',
+
+                        label: {
+                           text: 'cold',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Gentle breeze
+                        from: 50,
+                        to: 100,
+                        color: 'yellow',
+
+                        label: {
+                           text: 'Normal',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Moderate breeze
+                        from: 100,
+                        to: 10000,
+                        color: '#F75355',
+
+                        label: {
+                           text: 'Hot',
+                           style: {
+                              color: '#606060',
+
+                              fontsize: "20px"
+                           }
+                        }
+                     }
+                  ]
                       },
 
                       tooltip: {
@@ -919,6 +1351,8 @@
 
                       series: [{
                           name: 'PM 10 data',
+                          color: 'black',
+
                           data: (function () {
                               var data = [],
                                   time = (new Date()).getTime(),
@@ -979,11 +1413,35 @@
                               load: function () {
 
                                   var series = this.series[0];
+                                  setTimeout(function () {
+                                                     var x = (new Date()).getTime()+5000, // current time
+                                                         y = co2Element;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 5000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+10000, // current time
+                                                         y = co2Element;
+
+                                                     series.addPoint([x, y]);
+                                                     console.log(series)
+
+                                                 }, 10000);
+                                                 setTimeout(function () {
+                                                     var x = (new Date()).getTime()+20000, // current time
+                                                         y = co2Element;
+
+                                                     series.addPoint([x, y], true, true);
+                                                     console.log(series)
+
+                                                 }, 20000);
                                   setInterval(function () {
                                       var x = (new Date()).getTime(), // current time
                                           y = co2Element;
                                       series.addPoint([x, y], true, true);
-                                  }, 20000);
+                                  }, 30000);
                               }
                           }
                       },
@@ -997,7 +1455,7 @@
                       accessibility: {
                           announceNewData: {
                               enabled: true,
-                              minAnnounceInterval: 5000,
+                              minAnnounceInterval: 3000,
                               announcementFormatter: function (allSeries, newSeries, newPoint) {
                                   if (newPoint) {
                                       return 'New point added. Value: ' + newPoint.y;
@@ -1009,7 +1467,7 @@
 
                       xAxis: {
                           type: 'datetime',
-                          tickPixelInterval: 5000
+                          tickPixelInterval: 1000
                       },
 
                       yAxis: {
@@ -1020,7 +1478,59 @@
                               value: 0,
                               width: 1,
                               color: '#808080'
-                          }]
+                          }],
+                          plotBands: [
+                     { //
+                        from: 0,
+                        to: 300,
+                        color: '#28E6F2',
+
+                        label: {
+                           text: 'Low CO2',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Light breeze
+                        from: 300,
+                        to: 450,
+                        color: 'yellow',
+
+                        label: {
+                           text: 'Average CO2',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Gentle breeze
+                        from: 450,
+                        to: 550,
+                        color: 'orange',
+
+                        label: {
+                           text: 'High CO2',
+                           style: {
+                              color: '#606060'
+                           }
+                        }
+                     },
+                     { // Moderate breeze
+                        from: 550,
+                        to: 10000,
+                        color: '#F75355',
+
+                        label: {
+                           text: 'Very high CO2',
+                           style: {
+                              color: '#606060',
+
+                              fontsize: "20px"
+                           }
+                        }
+                     }
+                  ]
                       },
 
                       tooltip: {
@@ -1038,6 +1548,8 @@
 
                       series: [{
                           name: 'CO2 data',
+                          color: 'black',
+
                           data: (function () {
                               var data = [],
                                   time = (new Date()).getTime(),

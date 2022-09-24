@@ -157,7 +157,13 @@ def stuff2():
 
     return jsonify(data)
 
-
+@app.route("/_stuff3")
+def stuff3():
+    url=f'https://api.thingspeak.com/channels/{ChannelId}/feeds.json?api_key={ReadApi}&results=5'
+    d=urlli.urlopen(url).read()
+    dat=json.loads(d)
+    data=dat["feeds"]
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000)
